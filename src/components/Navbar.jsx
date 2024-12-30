@@ -14,7 +14,7 @@ const Navbar = () => {
         <div className="flex items-center justify-center w-8 h-8 bg-blue-500 rounded-full">
           <span className="text-white font-bold text-sm">✦</span>
         </div>
-        <span className="text-lg font-semibold text-gray-900">AI Chat</span>
+        <span className="text-lg font-semibold text-gray-900">BiceChat</span>
       </div>
 
       {/* Navigation Links */}
