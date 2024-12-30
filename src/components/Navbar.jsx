@@ -76,7 +76,7 @@ const Navbar = () => {
             </li>
             <li className="transition duration-300">
               <Link
-                to="/features"
+                to="/"
                 className="no-underline text-black hover:text-blue-500"
               >
                 Features
@@ -92,7 +92,7 @@ const Navbar = () => {
             </li>
             <li className="transition duration-300">
               <Link
-                to="/how-it-works"
+                to="/"
                 className="no-underline text-black hover:text-blue-500"
               >
                 How It Works
