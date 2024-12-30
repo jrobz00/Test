@@ -2,22 +2,37 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from "../firebase"; // Ensure the path to firebase.js is correct
-import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
+import { useNavigate } from "react-router-dom";
+import party from "party-js"; // Import party.js for celebration effects
 
 const LoginForm = ({ darkMode }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showSuccess, setShowSuccess] = useState(false); // State to manage success modal
 
   const auth = getAuth(app);
-  const navigate = useNavigate(); // Initialize the navigate function
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       console.log("User logged in:", userCredential.user);
-      alert("Login successful!");
-      navigate("/chat"); // Redirect to the chat page after successful login
+      
+      // Trigger party.js effect
+      const button = e.target.querySelector("button[type='submit']");
+      party.confetti(button, {
+        count: party.variation.range(40, 60),
+      });
+
+      // Show success modal
+      setShowSuccess(true);
+
+      // Delay navigation for user to enjoy the animation
+      setTimeout(() => {
+        setShowSuccess(false);
+        navigate("/chat");
+      }, 3000);
     } catch (error) {
       console.error("Error logging in:", error.message);
       alert("Error logging in: " + error.message);
@@ -128,6 +143,33 @@ const LoginForm = ({ darkMode }) => {
           </p>
         </div>
       </motion.div>
+
+      {/* Success Modal */}
+      {showSuccess && (
+        <motion.div
+          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <div
+            className={`w-[90%] max-w-sm p-6 rounded-lg shadow-lg ${
+              darkMode ? "bg-gray-800 text-white" : "bg-white text-black"
+            }`}
+          >
+            <h2
+              className={`text-xl font-bold mb-4 ${
+                darkMode ? "text-blue-400" : "text-blue-600"
+              }`}
+            >
+              🎉 Login Successful!
+            </h2>
+            <p className="text-gray-700 mb-4">
+              You have been successfully logged in. Redirecting you to the chat...
+            </p>
+          </div>
+        </motion.div>
+      )}
     </div>
   );
 };

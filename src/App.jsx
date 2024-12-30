@@ -10,6 +10,7 @@ import StatusPage from "./pages/StatusPage"; // Import StatusPage
 import Footer from "@components/Footer"; // Import Footer Component
 import LoginForm from "./components/LoginForm"; // Import LoginForm Component
 import RegisterForm from "./components/RegisterForm"; // Import RegisterForm Component
+import ProfileSettings from "./pages/ProfileSettings"; // Import ProfileSettings Page
 
 const App = () => {
   const [darkMode, setDarkMode] = React.useState(false);
@@ -22,7 +23,7 @@ const App = () => {
         }`}
       >
         {/* Navbar */}
-        {/* <Navbar darkMode={darkMode} toggleDarkMode={() => setDarkMode((prev) => !prev)} /> */}
+        <Navbar darkMode={darkMode} toggleDarkMode={() => setDarkMode((prev) => !prev)} />
 
         {/* Define Routes */}
         <Routes>
@@ -41,6 +42,7 @@ const App = () => {
           <Route path="/status" element={<StatusPage />} /> {/* Add StatusPage Route */}
           <Route path="/login" element={<LoginForm darkMode={darkMode} />} /> {/* Login Form Route */}
           <Route path="/register" element={<RegisterForm darkMode={darkMode} />} /> {/* Register Form Route */}
+          <Route path="/profile" element={<ProfileSettings />} /> {/* Profile Settings Route */}
         </Routes>
 
         {/* Footer */}

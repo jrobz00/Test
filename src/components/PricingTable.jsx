@@ -1,7 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const PricingTable = () => {
+  const navigate = useNavigate(); // Hook for navigation
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login state
+
+  // Check if user is logged in
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsLoggedIn(!!user); // Set to true if a user is logged in
+    });
+    return () => unsubscribe(); // Cleanup the subscription
+  }, []);
+
   const plans = [
     {
       name: "Starter Plan",
@@ -12,12 +26,13 @@ const PricingTable = () => {
         "Standard Response Time",
         "Community Support",
       ],
-      button: "Get Started Free",
+      button: isLoggedIn ? "Start Chatting" : "Get Started Free",
+      onClick: () => (isLoggedIn ? navigate("/chat") : navigate("/register")), // Redirect based on login status
       popular: false,
     },
     {
       name: "Pro Plan",
-      price: "$30/month",
+      price: "£10.00/month",
       features: [
         "Advanced AI Conversations",
         "Unlimited messages",
@@ -25,7 +40,7 @@ const PricingTable = () => {
         "24/7 Chat Support",
         "Custom AI Integrations",
       ],
-      button: "Go Pro",
+      button: "Coming Soon",
       popular: true,
     },
   ];
@@ -92,6 +107,7 @@ const PricingTable = () => {
                 ))}
               </ul>
               <motion.button
+                onClick={plan.onClick} // Attach the onClick handler
                 className={`w-full py-2 px-4 rounded-lg font-medium transition ${
                   plan.popular
                     ? "bg-blue-600 text-white hover:bg-blue-500"
@@ -99,6 +115,7 @@ const PricingTable = () => {
                 }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                disabled={plan.button === "Coming Soon"} // Disable if Coming Soon
               >
                 {plan.button}
               </motion.button>

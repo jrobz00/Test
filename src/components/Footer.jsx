@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 
 const Footer = ({ darkMode }) => {
   return (
@@ -23,41 +24,53 @@ const Footer = ({ darkMode }) => {
           <h1 className="text-xl font-semibold">BiceChat</h1>
         </motion.div>
 
-        {/* Navigation Links */}
-        <motion.ul
-          className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8 font-medium text-sm"
+        {/* Social Media Links */}
+        <motion.div
+          className="flex space-x-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          {["Home", "Chat", "Features", "Pricing", "How It Works"].map((item, index) => (
-            <li key={index}>
-              <Link
-                to={`/${item.toLowerCase().replace(/ /g, "-")}`}
-                className={`hover:text-blue-500 transition ${
-                  darkMode ? "text-gray-300" : "text-gray-700"
-                }`}
-              >
-                {item}
-              </Link>
-            </li>
-          ))}
-        </motion.ul>
-
-        {/* Sign-Up Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-        >
-          <Link
-            to="/sign-up"
-            className={`${
-              darkMode ? "bg-blue-700 hover:bg-blue-600" : "bg-blue-600 hover:bg-blue-500"
-            } text-white px-6 py-2 rounded-full text-sm font-medium shadow-md transition`}
+          <a
+            href="https://facebook.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`text-2xl ${
+              darkMode ? "text-gray-300 hover:text-blue-500" : "text-gray-700 hover:text-blue-600"
+            } transition`}
           >
-            Sign Up
-          </Link>
+            <FaFacebook />
+          </a>
+          <a
+            href="https://twitter.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`text-2xl ${
+              darkMode ? "text-gray-300 hover:text-blue-500" : "text-gray-700 hover:text-blue-600"
+            } transition`}
+          >
+            <FaTwitter />
+          </a>
+          <a
+            href="https://instagram.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`text-2xl ${
+              darkMode ? "text-gray-300 hover:text-blue-500" : "text-gray-700 hover:text-blue-600"
+            } transition`}
+          >
+            <FaInstagram />
+          </a>
+          <a
+            href="https://linkedin.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`text-2xl ${
+              darkMode ? "text-gray-300 hover:text-blue-500" : "text-gray-700 hover:text-blue-600"
+            } transition`}
+          >
+            <FaLinkedin />
+          </a>
         </motion.div>
       </div>
 
