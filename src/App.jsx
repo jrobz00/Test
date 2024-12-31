@@ -11,6 +11,8 @@ import Footer from "./components/Footer";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 import ProfileSettings from "./pages/ProfileSettings";
+import ForgotPassword from "./components/ForgotPassword"; // Import the ForgotPassword component
+import NotFoundPage from "./pages/NotFoundPage"; // Import your custom 404 page
 
 const App = () => {
   const [darkMode, setDarkMode] = React.useState(false);
@@ -43,6 +45,8 @@ const App = () => {
           <Route path="/login" element={<LoginForm darkMode={darkMode} />} />
           <Route path="/register" element={<RegisterForm darkMode={darkMode} />} />
           <Route path="/profile" element={<ProfileSettings />} />
+          <Route path="/forgot-password" element={<ForgotPassword darkMode={darkMode} />} />
+          <Route path="*" element={<NotFoundPage />} /> {/* Fallback for undefined routes */}
         </Routes>
 
         <Footer darkMode={darkMode} />
