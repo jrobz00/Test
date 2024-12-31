@@ -10,15 +10,16 @@ const ChatPage = () => {
     const [botTyping, setBotTyping] = useState(false);
     const chatEndRef = useRef(null);
 
+    // Hardcoded API key (public exposure risk!)
+    const OPENAI_API_KEY = "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";
+
     useEffect(() => {
         chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
 
     const handleSend = async () => {
-        const apiKey = import.meta.env.VITE_OPENAI_API_KEY; // Environment variable
-
-        if (!apiKey) {
-            alert("API Key is missing! Please configure your .env file.");
+        if (!OPENAI_API_KEY) {
+            alert("API Key is missing! Please configure your API key.");
             return;
         }
 
@@ -35,7 +36,6 @@ const ChatPage = () => {
         try {
             let botResponse;
 
-            // Predefined responses for specific questions
             if (/who.*made.*(you|this site)/i.test(input)) {
                 botResponse =
                     "This site was created by Joseph Robinson and powered by OpenAI.";
@@ -51,7 +51,7 @@ const ChatPage = () => {
                     },
                     {
                         headers: {
-                            Authorization: `Bearer ${apiKey}`,
+                            Authorization: `Bearer ${OPENAI_API_KEY}`,
                             "Content-Type": "application/json",
                         },
                     }
