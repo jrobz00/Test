@@ -11,7 +11,7 @@ const ChatPage = () => {
     const chatEndRef = useRef(null);
 
     // Hardcoded API key (public exposure risk!)
-    const OPENAI_API_KEY = "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";
+    const OPENAI_API_KEY = "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";
 
     useEffect(() => {
         chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
