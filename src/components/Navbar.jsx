@@ -6,7 +6,6 @@ import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
-  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,11 +30,9 @@ const Navbar = () => {
   const handleTalkToBiceClick = (e) => {
     if (!isLoggedIn) {
       e.preventDefault();
-      setShowModal(true);
+      navigate("/login"); // Redirect to login instead of showing a modal
     }
   };
-
-  const closeModal = () => setShowModal(false);
 
   return (
     <>
@@ -120,38 +117,6 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-
-      {/* Modal */}
-      {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">Access Restricted</h2>
-            <p className="text-gray-600 mb-6">
-              You need to be logged in to use the "Talk to Bice" feature.
-            </p>
-            <div className="flex justify-end space-x-4">
-              <button
-                onClick={closeModal}
-                className="bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={() => navigate("/login")}
-                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-500"
-              >
-                Log In
-              </button>
-              <button
-                onClick={() => navigate("/register")}
-                className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-500"
-              >
-                Sign Up
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 };
