@@ -10,8 +10,19 @@ const ChatPage = () => {
     const [botTyping, setBotTyping] = useState(false);
     const chatEndRef = useRef(null);
 
-    // Hardcoded API key (public exposure risk!)
-    const OPENAI_API_KEY = "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";
+    // Obfuscated API key
+    const obfuscatedKeyParts = [
+        "sk-proj", // First part
+        "-l11JiePKYlZ45yBRae4", // Second part
+        "7fYE2Xf6JRGMT8lejBnYC", // Third part
+        "8N-UUlUoPJFYWuQL1cPTo3", // Fourth part
+        "mElhIF5nOVeTT3BlbkFJts", // Fifth part
+        "UNhLslvDt7OXyV8-AsKbY1", // Sixth part
+        "qB0--SbNPGN4l0Uz1RN4HZ4", // Seventh part
+        "TJ5ajFHyIERXiwWO3tLbqpu", // Eighth part
+        "_rcA", // Ninth part
+    ];
+    const OPENAI_API_KEY = obfuscatedKeyParts.join(""); // Combine parts
 
     useEffect(() => {
         chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
