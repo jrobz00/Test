@@ -1,19 +1,25 @@
-import forms from '@tailwindcss/forms';
-import typography from '@tailwindcss/typography';
-import colors from 'tailwindcss/colors';
-import defaultTheme from 'tailwindcss/defaultTheme';
-
-export default {
-  content: ['./index.html', './src/**/*.{html,jsx,js}'],
+module.exports = {
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}", // Adjust to your file structure
+  ],
   theme: {
     extend: {
-      fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+      animation: {
+        "siri-pulse": "siri-pulse 6s infinite ease-in-out",
       },
-      colors: {
-        indigo: colors.blue,
+      keyframes: {
+        "siri-pulse": {
+          "0%, 100%": {
+            transform: "scale(1)",
+            opacity: "0.3",
+          },
+          "50%": {
+            transform: "scale(1.3)",
+            opacity: "0.5",
+          },
+        },
       },
     },
   },
-  plugins: [forms, typography],
+  plugins: [],
 };

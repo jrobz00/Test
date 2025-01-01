@@ -32,8 +32,8 @@ const App = () => {
             element={
               <>
                 <HeroBanner darkMode={darkMode} setDarkMode={setDarkMode} />
-                <HowItWorks />
-                <PricingTable />
+                {/* <HowItWorks /> */}
+                {/* <PricingTable /> */}
               </>
             }
           />
