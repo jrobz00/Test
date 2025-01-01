@@ -6,7 +6,6 @@ import { app } from "../firebase";
 
 const HeroBanner = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
   const [isBotTyping, setIsBotTyping] = useState(true);
   const [botMessage, setBotMessage] = useState("");
 
@@ -16,18 +15,12 @@ const HeroBanner = () => {
     const auth = getAuth(app);
 
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setIsLoggedIn(true);
-        setUser(user);
-      } else {
-        setIsLoggedIn(false);
-        setUser(null);
-      }
+      setIsLoggedIn(!!user);
     });
 
     const typingTimeout = setTimeout(() => {
       setBotMessage(
-        "Sure! What specifically do you need help with? I can provide examples or explanations."
+        "How can I assist you? Let's explore some creative solutions together."
       );
       setIsBotTyping(false);
     }, 3000);
@@ -39,20 +32,27 @@ const HeroBanner = () => {
   }, []);
 
   const handleButtonClick = () => {
-    if (isLoggedIn) {
-      navigate("/chat");
-    } else {
-      navigate("/register");
-    }
+    navigate(isLoggedIn ? "/chat" : "/register");
   };
 
   return (
-    <div className="relative bg-white min-h-screen overflow-hidden">
-      {/* Siri-Style Animated Background */}
-      <div className="absolute inset-0 flex items-center justify-center z-0">
-        <div className="absolute w-[800px] h-[800px] bg-gradient-to-r from-blue-400 via-purple-500 to-teal-400 rounded-full blur-3xl opacity-30 animate-siri-pulse"></div>
-        <div className="absolute w-[600px] h-[600px] bg-gradient-to-r from-teal-400 via-purple-500 to-pink-400 rounded-full blur-2xl opacity-40 animate-siri-pulse delay-2000"></div>
-        <div className="absolute w-[400px] h-[400px] bg-gradient-to-r from-purple-400 via-blue-500 to-pink-500 rounded-full blur-xl opacity-50 animate-siri-pulse delay-4000"></div>
+    <div className="relative bg-gradient-to-br from-white via-gray-100 to-gray-200 min-h-screen overflow-hidden">
+      {/* Dynamic Particle Background */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 grid grid-cols-12 gap-2 opacity-10">
+          {[...Array(144)].map((_, i) => (
+            <div
+              key={i}
+              className="w-2 h-2 bg-gradient-to-r from-blue-400 via-teal-400 to-purple-500 rounded-full animate-pulse"
+              style={{
+                animationDuration: `${Math.random() * 4 + 2}s`,
+                animationDelay: `${Math.random() * 3}s`,
+              }}
+            ></div>
+          ))}
+        </div>
+        <div className="absolute top-20 left-20 w-[300px] h-[300px] bg-gradient-to-tr from-blue-300 to-teal-300 rounded-full blur-3xl opacity-20 animate-spin-slow"></div>
+        <div className="absolute bottom-20 right-20 w-[400px] h-[400px] bg-gradient-to-br from-purple-300 to-pink-300 rounded-full blur-3xl opacity-25 animate-spin-slow"></div>
       </div>
 
       {/* Hero Section */}
@@ -60,14 +60,14 @@ const HeroBanner = () => {
         {/* Text Section */}
         <div className="flex-1 text-center md:text-left">
           <motion.h1
-            className="text-gray-900 text-4xl md:text-6xl font-extrabold leading-tight mb-6"
+            className="text-gray-800 text-5xl md:text-7xl font-extrabold leading-tight mb-6"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
           >
-            Best AI Chatbot <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 via-blue-500 to-purple-600">
-              Revolutionizing Conversations
+            Revolutionize <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-blue-500 to-purple-600">
+              Your Conversations
             </span>
           </motion.h1>
 
@@ -77,13 +77,13 @@ const HeroBanner = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 1 }}
           >
-            Experience the future of AI-powered communication.
+            Transform communication with AI-powered insights and assistance.
           </motion.p>
 
           <motion.button
-            className="bg-blue-500 text-white px-6 py-3 rounded-lg text-lg font-bold shadow-md hover:bg-blue-600 focus:outline-none"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            className="bg-blue-500 text-white px-6 py-3 rounded-lg text-lg font-bold shadow-lg hover:scale-105 transition-transform focus:outline-none"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 1 }}
             onClick={handleButtonClick}
           >
@@ -91,24 +91,22 @@ const HeroBanner = () => {
           </motion.button>
         </div>
 
-        {/* Chat Interface Section */}
+        {/* Interactive Chat Preview */}
         <motion.div
-          className="flex-1 mt-12 md:mt-0 md:ml-12 max-w-lg w-full bg-white shadow-md rounded-lg overflow-hidden"
+          className="flex-1 mt-12 md:mt-0 md:ml-12 max-w-lg w-full bg-white shadow-2xl rounded-2xl overflow-hidden"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 1 }}
         >
-          {/* Chat Header */}
-          <div className="bg-gray-100 px-6 py-4">
+          <div className="bg-gradient-to-r from-gray-100 to-blue-100 px-6 py-4 shadow">
             <h3 className="text-lg font-bold text-gray-800">BiceChat</h3>
             <p className="text-sm text-gray-500">Powered by OpenAI</p>
           </div>
 
-          {/* Chat Messages */}
           <div className="p-6 space-y-4">
             <div className="flex items-start justify-end space-x-3">
               <div className="bg-blue-500 text-white rounded-lg px-4 py-2 text-sm shadow">
-                Hi, I need help with coding!
+                Can you help me with my project?
               </div>
             </div>
 
